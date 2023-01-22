@@ -1,8 +1,7 @@
 const path = require('path');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const ImageminPlugin = require('imagemin-webpack-plugin');
-const imageminMozjpeg = require('imagemin-mozjpeg');
+const ImageminPlugin = require('imagemin-webpack-plugin').default;
 
 module.exports = {
   mode: 'development',
@@ -36,12 +35,9 @@ module.exports = {
     new ImageminPlugin({
       disable: process.env.NODE_ENV === 'production',
       test: './src/images/**',
-      plugins: [
-        imageminMozjpeg({
-          quality: 100,
-          progressive: true,
-        }),
-      ],
+      pngquant: {
+        quality: '95-100',
+      },
     }),
   ],
 };
